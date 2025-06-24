@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>RFM Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #555;
+        }
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        td:last-child {
+            background-color: #e8f5e9;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .charts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        .chart {
+            text-align: center;
+            flex: 1 1 400px;
+        }
+        .chart img {
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            background: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Customer RFM Analysis</h1>
+    <h2>Top 10 Customers with Segmentation</h2>
+    <table>
+        <tr>
+            {% for col in table_columns %}
+            <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in table_data %}
+        <tr>
+            {% for col in table_columns %}
+            <td>{{ row[col] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>RFM Metric Visualizations</h2>
+    <div class="charts">
+        {% for title, filename in charts %}
+        <div class="chart">
+            <h3>{{ title }}</h3>
+            <img src="{{ url_for('static', filename='images/' + filename) }}" alt="{{ title }}">
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
